@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shop.Domain.Entities;
+using Shop.Infrastructure.Configurations;
 
 namespace Shop.Infrastructure.Data;
 
@@ -21,4 +22,13 @@ public class ShopDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
 
     public DbSet<OrderItem> OrderItems { get; set; }
+
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.ApplyConfigurationsFromAssembly(
+            typeof(ProductConfiguration).Assembly);
+
+        base.OnModelCreating(modelBuilder);
+    }
 }
