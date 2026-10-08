@@ -1,4 +1,5 @@
-
+using Microsoft.EntityFrameworkCore;
+using Shop.Infrastructure.Data;
 namespace Shop.API
 {
     public class Program
@@ -6,6 +7,9 @@ namespace Shop.API
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<ShopDbContext>(options =>
+                 options.UseSqlServer(
+                     builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // Add services to the container.
 
