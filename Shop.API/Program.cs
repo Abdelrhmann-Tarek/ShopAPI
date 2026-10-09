@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Shop.Infrastructure.Data;
+using Shop.Application.Interfaces;
+using Shop.Infrastructure.Repositories;
+
 namespace Shop.API
 {
     public class Program
@@ -10,6 +13,10 @@ namespace Shop.API
             builder.Services.AddDbContext<ShopDbContext>(options =>
                  options.UseSqlServer(
                      builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>(); 
 
             // Add services to the container.
 
